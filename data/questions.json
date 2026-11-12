@@ -1,0 +1,85 @@
+{
+  "scoring": {
+    "note": "A를 고르면 E·S·T·J에 +1, B를 고르면 I·N·F·P에 +1. 지표마다 문항 수가 홀수라, 문항의 과반을 받은 쪽 글자가 결과 글자(1문항 지표는 1점, 3문항 지표는 2점 이상).",
+    "indicators": [
+      { "id": "EI", "title": "외향(E) vs 내향(I)", "questions": [1], "A": "E", "B": "I" },
+      { "id": "SN", "title": "감각(S) vs 직관(N)", "questions": [2, 3, 4], "A": "S", "B": "N" },
+      { "id": "TF", "title": "사고(T) vs 감정(F)", "questions": [5, 6, 7], "A": "T", "B": "F" },
+      { "id": "JP", "title": "판단(J) vs 인식(P)", "questions": [8], "A": "J", "B": "P" }
+    ]
+  },
+  "questions": [
+    {
+      "id": 1, "indicator": "EI",
+      "bubble": "어디부터 가 볼까?", "mood": "look",
+      "text": "오랜만에 도서관에 방문한 당신! 가장 먼저 눈이 가는 곳은?",
+      "options": [
+        { "key": "A", "letter": "E", "text": "북토크 등 체험/행사 안내판" },
+        { "key": "B", "letter": "I", "text": "조용하고 아늑한 1인 창가 독서석" }
+      ]
+    },
+    {
+      "id": 2, "indicator": "SN",
+      "bubble": "어떤 책이 눈에 띄어?", "mood": "look",
+      "text": "도서관 서가를 지나치며 책을 고를 때, 내 눈길을 사로잡는 책은?",
+      "options": [
+        { "key": "A", "letter": "S", "text": "내가 당장 필요한 실용적 정보를 담고있는 책" },
+        { "key": "B", "letter": "N", "text": "제목이나 표지만 봐도 호기심과 상상력을 자극하는 책" }
+      ]
+    },
+    {
+      "id": 3, "indicator": "SN",
+      "bubble": "책 속으로 풍덩!", "mood": "excited",
+      "text": "책을 읽을 때 나의 몰입 포인트는?",
+      "options": [
+        { "key": "A", "letter": "S", "text": "인물의 행동이나 사건이 구체적이고 장면이 생생한 부분" },
+        { "key": "B", "letter": "N", "text": "작가가 숨겨둔 철학적 의미나 끝없는 상상의 세계" }
+      ]
+    },
+    {
+      "id": 4, "indicator": "SN",
+      "bubble": "이 문구 어때?", "mood": "think",
+      "text": "도서관 안내문이나 추천사에서 마음에 확 와닿는 문구는?",
+      "options": [
+        { "key": "A", "letter": "S", "text": "\"당신의 일상을 바꿀 현실적인 문제 해결 가이드\"" },
+        { "key": "B", "letter": "N", "text": "\"삶의 근원적인 질문을 던지는 이야기\"" }
+      ]
+    },
+    {
+      "id": 5, "indicator": "TF",
+      "bubble": "음… 어떻게 정하지?", "mood": "think",
+      "text": "결정을 내릴 때 나의 기준은?",
+      "options": [
+        { "key": "A", "letter": "T", "text": "이성적이고 논리적인지" },
+        { "key": "B", "letter": "F", "text": "상처받는 사람이 없는지, 분위기와 관계에 미치는 영향" }
+      ]
+    },
+    {
+      "id": 6, "indicator": "TF",
+      "bubble": "앗, 이런 결말이…", "mood": "sad",
+      "text": "책 속 주인공이 잘못된 선택으로 인해 비극적인 결말을 맞이했다. 당신의 생각은?",
+      "options": [
+        { "key": "A", "letter": "T", "text": "\"주인공이 그 시점에서 합리적인 판단을 못 한 게 아쉽다.\"" },
+        { "key": "B", "letter": "F", "text": "\"주인공의 처지가 불쌍해.. 마음이 너무 먹먹하다.\"" }
+      ]
+    },
+    {
+      "id": 7, "indicator": "TF",
+      "bubble": "너라면 어떻게 할래?", "mood": "think",
+      "text": "독서 토론 중 내 의견과 전혀 다른 상대방의 주장을 들었을 때 나는?",
+      "options": [
+        { "key": "A", "letter": "T", "text": "사실관계를 따져보고, 논리적 오류가 있다면 객관적으로 지적한다." },
+        { "key": "B", "letter": "F", "text": "상대방이 왜 그렇게 생각했는지 배경을 먼저 이해하고 공감해 준다." }
+      ]
+    },
+    {
+      "id": 8, "indicator": "JP",
+      "bubble": "오늘 할 일, 어떻게 할까?", "mood": "think",
+      "text": "오늘 꼭 해야 할 일에 임하는 나의 스타일은?",
+      "options": [
+        { "key": "A", "letter": "J", "text": "시작/끝 시간과 분량을 정해놓고 규칙적으로 한다." },
+        { "key": "B", "letter": "P", "text": "시간을 정해두지 않고 마감이 임박하면 엄청난 집중력을 발휘해 끝낸다." }
+      ]
+    }
+  ]
+}

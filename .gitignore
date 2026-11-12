@@ -1,0 +1,7 @@
+# 공개 저장소에 올리지 않는 작업 자료
+reference/
+data/CHECK.md
+.claude/
+*.docx
+~$*
+_preview_tmp*

@@ -1,0 +1,126 @@
+:root {
+  --ink: #111;
+  --muted: #666;
+  --line: #e9e9e9;
+  --bg: #fff;
+  --blue: #2f7fe0;
+  --teal: #4f9f94;
+  --teal-dark: #2f6b61;
+  --teal-soft: #eaf5f3;
+  --display: "Jua", "Noto Sans KR", sans-serif;
+  --body: "Noto Sans KR", "Malgun Gothic", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+button { font: inherit; cursor: pointer; }
+
+button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* 시작 화면 */
+.start { flex: 1; display: flex; flex-direction: column; }
+.start-body { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.start-sub { margin: 0; font-family: var(--display); font-size: 1.15rem; color: #8d5fb0; }
+.start-title { margin: 4px 0 8px; font-family: var(--display); font-size: clamp(4rem, 24vw, 6.5rem); font-weight: 400; line-height: 1.1; color: #e8805f; }
+.start-desc { margin: 0; color: var(--muted); }
+
+/* 도서관 로고 */
+.logo { display: block; width: 100%; max-width: 220px; height: auto; margin: 0 auto; }
+.logo-small { max-width: 150px; margin-top: 28px; opacity: .9; }
+
+/* 캐릭터와 말풍선 */
+.scene { display: flex; flex-direction: column; align-items: center; margin: 12px 0; }
+.scene .art { margin: 0 auto; }
+.bubble { position: relative; max-width: 90%; margin: 0 0 12px; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 18px; background: #fff; font-family: var(--display); font-size: 1.05rem; text-align: center; }
+.bubble::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: #fff; transform: translateX(-50%) rotate(45deg); }
+.scene-small { margin: -4px 0 4px; }
+.scene-small .art { max-width: 120px; }
+.scene-small .bubble { font-size: .95rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .mood-wave .art { animation: wave 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+  .mood-look .art { animation: look 3s ease-in-out infinite; }
+  .mood-think .art { animation: think 2.8s ease-in-out infinite; transform-origin: 50% 90%; }
+  .mood-sad .art { animation: sad 3s ease-in-out infinite; transform-origin: 50% 100%; }
+  .mood-excited .art { animation: hop 1.1s ease-in-out infinite; }
+}
+@keyframes wave { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
+@keyframes look { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-8px); } 70% { transform: translateX(8px); } }
+@keyframes think { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-6deg) translateY(2px); } }
+@keyframes sad { 0%, 100% { transform: scaleY(1); filter: saturate(1); } 50% { transform: scaleY(.95) translateY(4px); filter: saturate(.7); } }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-14px); } 60% { transform: translateY(-14px) rotate(3deg); } }
+
+/* 이미지 자리 */
+.art { display: block; width: 100%; max-width: 220px; aspect-ratio: 492 / 395; margin: 16px auto; object-fit: contain; }
+.art-empty { display: flex; align-items: center; justify-content: center; border: 2px dashed #d5d5d5; border-radius: 16px; color: #8a8a8a; font-size: .9rem; }
+
+/* 문항 화면 */
+.topbar { display: flex; align-items: center; gap: 8px; }
+.back { flex: none; width: 40px; height: 40px; border: 0; border-radius: 50%; background: #f3f3f3; font-size: 1.1rem; }
+.progress { flex: 1; height: 8px; overflow: hidden; border-radius: 999px; background: var(--line); }
+.progress-bar { height: 100%; border-radius: inherit; background: var(--ink); transition: width .2s; }
+.count { flex: none; color: var(--muted); font-size: .85rem; }
+.q-no { margin: 16px 0 0; font-family: var(--display); font-size: 1.8rem; text-align: center; }
+.q-text { margin: 0 0 20px; font-family: var(--display); font-size: 1.35rem; font-weight: 400; line-height: 1.5; text-align: center; }
+.options { display: grid; gap: 12px; margin-top: auto; }
+.option { width: 100%; min-height: 72px; padding: 14px 16px; border: 2px solid var(--ink); border-radius: 12px; background: #fff; color: var(--blue); line-height: 1.5; }
+.option:hover { background: #f2f7fe; }
+
+/* 결과 화면 */
+.card { padding: 24px 18px; border: 10px solid var(--teal); border-radius: 22px; background: #fcfffe; text-align: center; }
+.r-label { margin: 0; font-family: var(--display); font-size: 1.5rem; }
+.r-code { margin: 10px 0 14px; padding: 8px; border-radius: 999px; background: var(--teal-dark); color: #fff; font-family: var(--display); font-size: clamp(2.6rem, 14vw, 3.6rem); font-weight: 400; line-height: 1.25; box-shadow: 4px 5px 0 #c3e2dd; }
+.r-title { margin: 0; font-size: 1.2rem; font-weight: 700; }
+.r-tagline { margin: 8px 0 0; }
+.r-comment { margin: 14px 0 0; text-align: left; font-size: .96rem; }
+.tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+.tags li { padding: 2px 10px; border-radius: 999px; background: var(--teal-soft); color: var(--teal-dark); font-size: .85rem; }
+.books-title { margin: 28px 0 8px; font-size: 1.05rem; line-height: 1.5; }
+.genre { display: inline-block; margin: 0 0 16px; padding: 2px 12px; border-radius: 999px; background: var(--teal-soft); color: var(--teal-dark); font-size: .85rem; }
+.books { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 12px; }
+.book { min-width: 0; }
+.book-3rd { grid-column: 1 / -1; width: calc(50% - 6px); margin: 0 auto; }
+.cover { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, .14); }
+.cover-empty { display: flex; align-items: center; justify-content: center; background: var(--teal-soft); color: var(--teal-dark); font-size: .85rem; }
+.book-cat { margin: 8px 0 0; color: var(--muted); font-size: .85rem; }
+.book-title { margin: 2px 0 0; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere; }
+.book-meta { margin: 2px 0 0; color: var(--muted); font-size: .8rem; overflow-wrap: anywhere; }
+.books-empty { margin: 0; padding: 18px 12px; border-radius: 12px; background: var(--teal-soft); color: var(--teal-dark); }
+.ebook-note { margin: 14px 0 0; color: var(--muted); font-size: .85rem; }
+.retry { margin-top: 16px; background: var(--teal); }
+
+.message { margin: auto 0; text-align: center; }
