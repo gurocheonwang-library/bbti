@@ -204,7 +204,7 @@
 
   // ---------- 구글 시트 도서 목록 ----------
   // 시트의 "웹에 게시"(CSV) 주소. 비워 두면 data/types.json의 도서를 그대로 쓴다.
-  const BOOKS_SHEET_CSV = '';
+  const BOOKS_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQoXy_-qTJVVFRFJ1h41xuiMlF9YmK-tJKfahostft_rrEr4ccXsAQS0oil504S_8UYXkEDfJn4A-Ec/pub?gid=259595354&single=true&output=csv';
   const SHEET_TIMEOUT_MS = 5000;
   const CATEGORIES = ['문학', '비문학'];
 
@@ -291,7 +291,8 @@
       questions = questionData.questions;
       indicators = questionData.scoring.indicators;
       types = typeData.types;
-      await applySheetBooks();
+      // 시트는 뒤에서 읽는다. 결과 화면 전까지 읽히지 않으면 types.json 목록이 그대로 쓰인다.
+      applySheetBooks();
       renderStart();
     } catch (error) {
       console.error(error);
