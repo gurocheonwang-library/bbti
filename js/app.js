@@ -202,6 +202,86 @@
     return response.json();
   }
 
+  // ---------- 구글 시트 도서 목록 ----------
+  // 시트의 "웹에 게시"(CSV) 주소. 비워 두면 data/types.json의 도서를 그대로 쓴다.
+  const BOOKS_SHEET_CSV = '';
+  const SHEET_TIMEOUT_MS = 5000;
+  const CATEGORIES = ['문학', '비문학'];
+
+  // 따옴표와 줄바꿈이 들어간 칸까지 처리하는 CSV 해석기.
+  function parseCsv(text) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let quoted = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (quoted) {
+        if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+        else if (c === '"') quoted = false;
+        else cell += c;
+      } else if (c === '"') quoted = true;
+      else if (c === ',') { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') {
+        if (c === '\r' && text[i + 1] === '\n') i++;
+        row.push(cell); rows.push(row); row = []; cell = '';
+      } else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+
+  // 표지 칸: 인터넷 주소면 그대로, 파일 이름이면 책표지 폴더에서 찾는다.
+  function coverPath(value) {
+    if (!value) return '';
+    if (/^https?:\/\//i.test(value)) return value;
+    return `책표지/${/\.(jpe?g|png|webp|gif)$/i.test(value) ? value : `${value}.jpg`}`;
+  }
+
+  // 시트 행을 유형별 도서 목록으로 바꾼다. 형식이 맞지 않는 행은 건너뛴다.
+  function booksFromSheet(text) {
+    const [header, ...rows] = parseCsv(text.replace(/^﻿/, ''));
+    const col = (name) => (header || []).findIndex((h) => h.trim() === name);
+    const idx = {
+      code: col('유형'), category: col('구분'), title: col('제목'), author: col('저자'),
+      callNumber: col('청구기호'), cover: col('표지 파일'), ebookUrl: col('전자책 링크'),
+    };
+    if (idx.code < 0 || idx.category < 0 || idx.title < 0) throw new Error('시트 머리글(유형, 구분, 제목)을 찾지 못함');
+    const codes = new Set(types.map((t) => t.code));
+    const byCode = {};
+    rows.forEach((r, n) => {
+      const get = (k) => (idx[k] >= 0 ? (r[idx[k]] || '').trim() : '');
+      const code = get('code').toUpperCase();
+      if (!code && !get('title')) return; // 빈 줄
+      if (!codes.has(code) || !CATEGORIES.includes(get('category')) || !get('title')) {
+        console.warn(`도서 시트 ${n + 2}행을 건너뜀: 유형·구분·제목을 확인하세요.`, r);
+        return;
+      }
+      (byCode[code] = byCode[code] || []).push({
+        category: get('category'), title: get('title'), author: get('author'),
+        cover: coverPath(get('cover')), ebookUrl: get('ebookUrl'), callNumber: get('callNumber'),
+      });
+    });
+    return byCode;
+  }
+
+  // 시트를 읽어 유형별 도서를 바꾼다. 실패하거나 해당 유형의 행이 없으면 기존 목록을 유지한다.
+  async function applySheetBooks() {
+    if (!BOOKS_SHEET_CSV) return;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SHEET_TIMEOUT_MS);
+    try {
+      const response = await fetch(BOOKS_SHEET_CSV, { cache: 'no-cache', signal: controller.signal });
+      if (!response.ok) throw new Error(`도서 시트: ${response.status}`);
+      const byCode = booksFromSheet(await response.text());
+      types.forEach((t) => { if (byCode[t.code]) t.books = byCode[t.code]; });
+    } catch (error) {
+      console.warn('도서 시트를 불러오지 못해 기본 도서 목록을 사용합니다.', error);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async function init() {
     try {
       const [questionData, typeData] = await Promise.all([
@@ -211,6 +291,7 @@
       questions = questionData.questions;
       indicators = questionData.scoring.indicators;
       types = typeData.types;
+      await applySheetBooks();
       renderStart();
     } catch (error) {
       console.error(error);
