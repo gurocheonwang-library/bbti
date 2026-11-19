@@ -67,8 +67,10 @@ button:focus-visible, a:focus-visible {
 .scene .art { margin: 0 auto; }
 .bubble { position: relative; max-width: 90%; margin: 0 0 12px; padding: 8px 16px; border: 2px solid var(--ink); border-radius: 18px; background: #fff; font-family: var(--display); font-size: 1.05rem; text-align: center; }
 .bubble::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: #fff; transform: translateX(-50%) rotate(45deg); }
+.art-row { display: flex; justify-content: center; align-items: flex-end; gap: 4px; }
+.scene-pair .art:nth-child(2) { animation-delay: -.6s; }
 .scene-small { margin: -4px 0 4px; }
-.scene-small .art { max-width: 120px; }
+.scene-small .art { height: 110px; }
 .scene-small .bubble { font-size: .95rem; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -85,7 +87,9 @@ button:focus-visible, a:focus-visible {
 @keyframes hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-14px); } 60% { transform: translateY(-14px) rotate(3deg); } }
 
 /* 이미지 자리 */
-.art { display: block; width: 100%; max-width: 220px; aspect-ratio: 492 / 395; margin: 16px auto; object-fit: contain; }
+.art { display: block; height: 180px; width: auto; max-width: 48%; margin: 16px auto; object-fit: contain; }
+.scene:not(.scene-pair) .art { max-width: 100%; }
+.art-empty { width: 120px; }
 .art-empty { display: flex; align-items: center; justify-content: center; border: 2px dashed #d5d5d5; border-radius: 16px; color: #8a8a8a; font-size: .9rem; }
 
 /* 문항 화면 */

@@ -11,6 +11,7 @@
   "questions": [
     {
       "id": 1, "indicator": "EI",
+      "image": "assets/character/boy-q1.png",
       "bubble": "어디부터 가 볼까?", "mood": "look",
       "text": "오랜만에 도서관에 방문한 당신! 가장 먼저 눈이 가는 곳은?",
       "options": [
@@ -20,6 +21,7 @@
     },
     {
       "id": 2, "indicator": "SN",
+      "image": "assets/character/girl-q2.png",
       "bubble": "어떤 책이 눈에 띄어?", "mood": "look",
       "text": "도서관 서가를 지나치며 책을 고를 때, 내 눈길을 사로잡는 책은?",
       "options": [
@@ -29,6 +31,7 @@
     },
     {
       "id": 3, "indicator": "SN",
+      "image": "assets/character/boy-q3.png",
       "bubble": "책 속으로 풍덩!", "mood": "excited",
       "text": "책을 읽을 때 나의 몰입 포인트는?",
       "options": [
@@ -38,6 +41,7 @@
     },
     {
       "id": 4, "indicator": "SN",
+      "image": "assets/character/girl-q4.png",
       "bubble": "이 문구 어때?", "mood": "think",
       "text": "도서관 안내문이나 추천사에서 마음에 확 와닿는 문구는?",
       "options": [
@@ -47,6 +51,7 @@
     },
     {
       "id": 5, "indicator": "TF",
+      "image": "assets/character/boy-q5.png",
       "bubble": "음… 어떻게 정하지?", "mood": "think",
       "text": "결정을 내릴 때 나의 기준은?",
       "options": [
@@ -56,6 +61,7 @@
     },
     {
       "id": 6, "indicator": "TF",
+      "image": "assets/character/girl-q6.png",
       "bubble": "앗, 이런 결말이…", "mood": "sad",
       "text": "책 속 주인공이 잘못된 선택으로 인해 비극적인 결말을 맞이했다. 당신의 생각은?",
       "options": [
@@ -65,6 +71,7 @@
     },
     {
       "id": 7, "indicator": "TF",
+      "image": "assets/character/boy-q7.png",
       "bubble": "너라면 어떻게 할래?", "mood": "think",
       "text": "독서 토론 중 내 의견과 전혀 다른 상대방의 주장을 들었을 때 나는?",
       "options": [
@@ -74,6 +81,7 @@
     },
     {
       "id": 8, "indicator": "JP",
+      "image": "assets/character/girl-q8.png",
       "bubble": "오늘 할 일, 어떻게 할까?", "mood": "think",
       "text": "오늘 꼭 해야 할 일에 임하는 나의 스타일은?",
       "options": [

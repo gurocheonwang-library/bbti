@@ -2,10 +2,12 @@
   'use strict';
 
   const LOGO = 'assets/logo.png';
-  // 캐릭터 기본 그림. 문항에 "image" 값을 넣으면 그 문항만 다른 그림을 쓴다(상황별 그림이 완성되면 사용).
-  const CHARACTER = 'assets/character/dog.png';
-  const START_SCENE = { bubble: '안녕! 나랑 딱 맞는 책 찾으러 갈래?', mood: 'wave' };
-  const RESULT_SCENE = { bubble: '찾았다! 너에게 어울리는 책!', mood: 'excited' };
+  // 도서관 캐릭터 2명. 시작·결과 화면에는 둘이 함께, 문항은 홀수 번호에 BOY, 짝수 번호에 GIRL이 나온다.
+  // 문항에 "image" 값을 넣으면 그 문항만 다른 그림을 쓴다(상황별 그림이 생기면 사용).
+  const GIRL = 'assets/character/girl.png';
+  const BOY = 'assets/character/boy.png';
+  const START_SCENE = { images: ['assets/character/girl-start.png', 'assets/character/boy-start.png'], bubble: '안녕! 우리랑 딱 맞는 책 찾으러 갈래?', mood: 'wave' };
+  const RESULT_SCENE = { images: ['assets/character/girl-result.png', 'assets/character/boy-result.png'], bubble: '찾았다! 너에게 어울리는 책!', mood: 'excited' };
 
   const app = document.getElementById('app');
   let questions = [];
@@ -37,10 +39,13 @@
   }
 
   // 캐릭터와 말풍선. mood에 따라 움직임이 달라진다(wave, look, think, sad, excited).
-  function scene({ image, bubble, mood }, small) {
-    const figure = el('figure', `scene mood-${mood || 'look'}${small ? ' scene-small' : ''}`);
+  function scene({ id, image, images, bubble, mood }, small) {
+    const list = images || [image || (id % 2 === 0 ? GIRL : BOY)];
+    const figure = el('figure', `scene mood-${mood || 'look'}${small ? ' scene-small' : ''}${list.length > 1 ? ' scene-pair' : ''}`);
     if (bubble) figure.append(el('figcaption', 'bubble', bubble));
-    figure.append(imageOr(image || CHARACTER, '', 'art', el('div', 'art art-empty', '캐릭터 이미지 자리')));
+    const row = el('div', 'art-row');
+    list.forEach((src) => row.append(imageOr(src, '', 'art', el('div', 'art art-empty', '캐릭터 이미지 자리'))));
+    figure.append(row);
     return figure;
   }
 
