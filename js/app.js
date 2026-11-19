@@ -59,7 +59,7 @@
     const body = el('div', 'start-body');
     body.append(
       el('p', 'start-sub', 'MBTI 성격유형별 추천도서'),
-      el('h1', 'start-title', 'BBTI'),
+      el('h1', 'start-title', 'MBTI'),
       scene(START_SCENE),
       el('p', 'start-desc', `${questions.length}개의 질문으로 나에게 맞는 책을 찾아보세요`)
     );
@@ -157,12 +157,12 @@
     const card = el('section', 'card');
     card.append(
       scene(RESULT_SCENE, true),
-      el('p', 'r-label', '나의 BBTI는'),
+      el('p', 'r-label', '나의 MBTI는'),
       el('h1', 'r-code', type.code),
       el('p', 'r-title', type.title)
     );
     if (type.tagline) card.append(el('p', 'r-tagline', type.tagline));
-    card.append(el('p', 'r-comment', type.comment));
+    // 긴 유형 설명(type.comment)은 화면이 길어져 표시하지 않는다. 데이터에는 남겨 둔다.
 
     const hashtags = type.hashtags || [];
     if (hashtags.length) {
